@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.card-container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: center;
+}
+
+.actions {
+    margin-top: 10vh;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80vw;
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 2vw;
+    border-radius: 5px;
+    margin: 1vh;
+    position: relative;
+}
+
+.plus {
+    background-color: transparent;
+    margin: auto 0;
+    font-weight: 700;
+    border-radius: 50%;
+    border: none;
+    font-size: 200%;
+    cursor: pointer;
+    outline: none;
+
+}
+
+.card input {
+    outline: none;
+    padding: 3px;
+    margin: 3px 0;
+    font-size: 150%;
+}
+
+.closeButton {
+    font-size: 100%;
+    opacity: 100%;
+    transition-duration: 1s;
+    margin: none;
+    position: absolute;
+    top: 3px;
+    right: 10px;
+    outline: none;
+
+}
+
+.card:hover>.closeButton {
+    opacity: 100%;
+}
+
+.submitButton {
+    margin-top: 5vh;
+    width: 10rem;
+    outline: none;
+    border: 2px black solid;
+    border-radius: 10rem;
+    font-weight: 700;
+    font-size: 130%;
+    letter-spacing: 0.15rem;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: 0.7s;
+}
+
+.submitButton:hover {
+    background-color: #dddddd;
+
+}

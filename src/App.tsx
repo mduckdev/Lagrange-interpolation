@@ -1,24 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-
+import { Cards } from "./components/Cards.component"
+import { Plus } from "./components/AddCard.component"
+import { useState } from 'react';
 function App() {
+  const [xPoints, setXPoint] = useState<number[]>([]);
+  const [yPoints, setYPoint] = useState<number[]>([]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='card-container'>
+        <Cards></Cards>
+        <button className='submitButton'>OBLICZ</button>
+      </div>
     </div>
   );
 }
