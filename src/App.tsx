@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Cards } from "./components/Cards.component"
 import { RootState } from './redux/store';
-
+import "./scss/style.scss"
 function App() {
   const cardsList = useSelector((state: RootState) => state.cards);
   const [url, setUrl] = useState("");
@@ -51,6 +51,8 @@ function App() {
     const xPoints: number[] = cardsList.map(element => element.xValue);
     const yPoints: number[] = cardsList.map(element => element.yValue);
     const Coefficients = getCoefficients(xPoints, yPoints);
+    if ((new Set(xPoints)).size !== yPoints.length) { return }
+
     let equation: string = "f(x)=";
     for (let i = 0; i < Coefficients.length; i++) {
       let sign: string = "+"
@@ -77,7 +79,7 @@ function App() {
 
       </div>
 
-      {url.length > 0 ? (<div><br></br><img alt="Equation" src={url}></img></div>) : (<div></div>)}
+      {url.length > 0 ? (<div className='results'><br></br><img alt="Equation" src={url}></img></div>) : (<div></div>)}
     </div>
   );
 }
