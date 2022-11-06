@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import './App.css';
 import { Cards } from "./components/Cards.component"
 import { RootState } from './redux/store';
 
@@ -51,8 +50,6 @@ function App() {
   const showEquation = () => {
     const xPoints: number[] = cardsList.map(element => element.xValue);
     const yPoints: number[] = cardsList.map(element => element.yValue);
-    console.log(xPoints, yPoints);
-    console.log(getCoefficients(xPoints, yPoints))
     const Coefficients = getCoefficients(xPoints, yPoints);
     let equation: string = "f(x)=";
     for (let i = 0; i < Coefficients.length; i++) {
@@ -71,7 +68,6 @@ function App() {
       equation += sign + Math.abs(Coefficients[i]).toString() + "x^" + String(Coefficients.length - 1 - i);
     }
     setUrl("https://latex.codecogs.com/png.image?\\dpi{110}" + equation);
-    console.log("https://latex.codecogs.com/png.image?\\dpi{110}" + equation);
   }
   return (
     <div className="App">
