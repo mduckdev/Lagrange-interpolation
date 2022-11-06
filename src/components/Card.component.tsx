@@ -11,7 +11,6 @@ export const Card = (props: cardProps) => {
     //const count = useSelector((state: RootState) => state.counter.value)
     const dispatch = useDispatch();
     const cardsList = useSelector((state: RootState) => state.cards);
-    console.log(cardsList)
     return (
         <div className="card">
             X<sub>{props.index}</sub>Y<sub>{props.index}</sub>
