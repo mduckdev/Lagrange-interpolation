@@ -47,7 +47,7 @@ body {
 .card input {
     outline: none;
     padding: 3px;
-    margin: 3px 0;
+    margin: 3px 0.4rem;
     font-size: 150%;
 }
 
@@ -79,9 +79,9 @@ body {
     background-color: #ffffff;
     cursor: pointer;
     transition: 0.7s;
+
 }
 
 .submitButton:hover {
     background-color: #dddddd;
-
 }
