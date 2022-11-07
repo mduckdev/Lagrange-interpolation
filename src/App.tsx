@@ -6,6 +6,7 @@ import "./scss/style.scss"
 function App() {
   const cardsList = useSelector((state: RootState) => state.cards);
   const [url, setUrl] = useState("");
+  const [graphURL, setGraphURL] = useState("");
   const [interpolatedXValue, setInterpolatedXValue] = useState("");
   function multiply(a1: number[], a2: number[]) {
     let result: number[] = [];
@@ -18,7 +19,7 @@ function App() {
   }
 
   const getCoefficients = (xPoints: number[], yPoints: number[]): number[] => {
-    if (yPoints.length == 1) { return [yPoints[0]] }
+    if (yPoints.length === 1) { return [yPoints[0]] }
     let result: number[] = [];
     for (let i = 0; i < xPoints.length; i++) {
       result.push(0);
@@ -71,6 +72,8 @@ function App() {
       }
       equation += sign + Math.abs(Coefficients[i]).toString() + "x^" + String(Coefficients.length - 1 - i);
     }
+    navigator.clipboard.writeText(equation.slice(5));
+    setGraphURL(`https://www.wolframalpha.com/input?i=plot+${equation}`)
     if (interpolatedXValue.length > 0) {
       setUrl("https://latex.codecogs.com/png.image?\\dpi{110}\\\\" + equation + `\\\\f(${interpolatedXValue})=${calculateY(yPoints, xPoints, Number(interpolatedXValue))}`);
     } else {
@@ -79,15 +82,15 @@ function App() {
 
   }
   const calculateY = (yPoints: number[], xPoints: number[], interpolatedXValue: number) => {
-    if (yPoints.length == 1) { return [yPoints[0]] }
+    if (yPoints.length === 1) { return [yPoints[0]] }
 
-    if (xPoints.length != yPoints.length || xPoints.length == 0) return;
-    if (yPoints.length == 1) return (yPoints[0] / xPoints[0]) * interpolatedXValue;
+    if (xPoints.length !== yPoints.length || xPoints.length === 0) return;
+    if (yPoints.length === 1) return (yPoints[0] / xPoints[0]) * interpolatedXValue;
     let result = 0;
     for (let i = 0; i < yPoints.length; i++) {
       let tempValue = 1;
       for (let j = 0; j < yPoints.length; j++) {
-        if (i != j) {
+        if (i !== j) {
           tempValue *= (interpolatedXValue - xPoints[j]) / (xPoints[i] - xPoints[j]);
         }
       }
@@ -95,7 +98,6 @@ function App() {
     }
     return result;
   }
-
   return (
     <div className="App">
       <div className='card-container'>
@@ -105,6 +107,12 @@ function App() {
       </div>
 
       {url.length > 0 ? (<div className='results'><br></br><img alt="Equation" src={url}></img></div>) : (<div></div>)}
+      <br></br>
+      <div className='graph'>
+        <a href={graphURL} rel='noreferrer' target="_blank">WYKRES</a>
+        <br></br>
+        <i>Wzór po wygenerowaniu zostaje skopiowany do schowka</i>
+      </div>
     </div>
   );
 }

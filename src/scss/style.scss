@@ -12,43 +12,33 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     flex-direction: row;
-    align-content: center;
+    align-items: center;
+    gap: 1vh
 }
 
-.actions {
-    margin-top: 10vh;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80vw;
-    display: flex;
-    justify-content: center;
-}
 
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    padding: 2vw;
+    padding: 1.5vw;
     border-radius: 5px;
-    margin: 1vh;
     position: relative;
 }
 
 .plus {
     background-color: transparent;
-    margin: auto 0;
     font-weight: 700;
     border-radius: 50%;
     border: none;
     font-size: 200%;
     cursor: pointer;
     outline: none;
-
 }
 
 .card input {
     outline: none;
     padding: 3px;
     margin: 3px 0.4rem;
-    font-size: 150%;
+    font-size: 140%;
 }
 
 .closeButton {
@@ -68,7 +58,7 @@ body {
 }
 
 .submitButton {
-    margin-top: 5vh;
+    margin-top: 2vh;
     width: 10rem;
     outline: none;
     border: 2px black solid;
@@ -79,21 +69,26 @@ body {
     background-color: #ffffff;
     cursor: pointer;
     transition: 0.7s;
+    padding: 0.2rem;
 }
 
 .calculateYInput {
-    margin-top: 5vh;
+    margin-top: 2vh;
     width: 13rem;
     outline: none;
     border: 2px black solid;
     border-radius: 10rem;
     font-weight: 700;
     letter-spacing: 0.05rem;
+    font-size: 100%;
     background-color: #ffffff;
     transition: 0.7s;
     text-align: center;
-    padding: 0.5rem;
-    margin-left: 1rem;
+    padding: 0.4rem;
+}
+
+.calculateYInput::placeholder {
+    font-size: 80%;
 }
 
 .submitButton:hover {
@@ -106,6 +101,19 @@ body {
     align-items: center;
     display: flex;
     justify-content: center;
+}
+
+.graph {
+    text-align: center;
+    margin-top: 10vh;
+}
+
+.graph a {
+    outline: none;
+    font-size: 120%;
+    color: black;
+    font-weight: 700;
+    letter-spacing: 0.05rem;
 }
 
 .results img {

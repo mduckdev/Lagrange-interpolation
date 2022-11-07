@@ -19,10 +19,13 @@ export const Cards = () => {
 
     return (
         <div className="card-container">
-            {cardsList.cards.map((element, index) => <Card index={index} key={index}></Card>)}
+            <div className="card-container">
+                {cardsList.cards.map((element, index) => <Card index={index} key={index}></Card>)}
+            </div>
             <button className='plus' onClick={() => dispatch(createCard())}>
                 +
             </button>
         </div>
+
     )
 }
