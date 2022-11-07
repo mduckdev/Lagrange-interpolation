@@ -6,6 +6,7 @@ import "./scss/style.scss"
 function App() {
   const cardsList = useSelector((state: RootState) => state.cards);
   const [url, setUrl] = useState("");
+  const [interpolatedXValue, setInterpolatedXValue] = useState("");
   function multiply(a1: number[], a2: number[]) {
     let result: number[] = [];
     a1.forEach(function (a, i) {
@@ -70,14 +71,37 @@ function App() {
       }
       equation += sign + Math.abs(Coefficients[i]).toString() + "x^" + String(Coefficients.length - 1 - i);
     }
-    setUrl("https://latex.codecogs.com/png.image?\\dpi{110}" + equation);
+    if (interpolatedXValue.length > 0) {
+      setUrl("https://latex.codecogs.com/png.image?\\dpi{110}\\\\" + equation + `\\\\f(${interpolatedXValue})=${calculateY(yPoints, xPoints, Number(interpolatedXValue))}`);
+    } else {
+      setUrl("https://latex.codecogs.com/png.image?\\dpi{110}\\\\" + equation)
+    }
+
   }
+  const calculateY = (yPoints: number[], xPoints: number[], interpolatedXValue: number) => {
+    if (yPoints.length == 1) { return [yPoints[0]] }
+
+    if (xPoints.length != yPoints.length || xPoints.length == 0) return;
+    if (yPoints.length == 1) return (yPoints[0] / xPoints[0]) * interpolatedXValue;
+    let result = 0;
+    for (let i = 0; i < yPoints.length; i++) {
+      let tempValue = 1;
+      for (let j = 0; j < yPoints.length; j++) {
+        if (i != j) {
+          tempValue *= (interpolatedXValue - xPoints[j]) / (xPoints[i] - xPoints[j]);
+        }
+      }
+      result += tempValue * yPoints[i];
+    }
+    return result;
+  }
+
   return (
     <div className="App">
       <div className='card-container'>
         <Cards></Cards>
         <button onClick={showEquation} className='submitButton'>OBLICZ</button>
-        <input type="number" className='calculateYInput' placeholder='Oblicz wartość dla x:'></input>
+        <input onChange={e => setInterpolatedXValue(e.target.value)} type="number" className='calculateYInput' placeholder='Oblicz wartość dla x:'></input>
       </div>
 
       {url.length > 0 ? (<div className='results'><br></br><img alt="Equation" src={url}></img></div>) : (<div></div>)}
