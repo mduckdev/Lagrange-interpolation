@@ -6,7 +6,7 @@ import "./scss/style.scss"
 function App() {
   const cardsList = useSelector((state: RootState) => state.cards);
   const [url, setUrl] = useState("");
-  const [graphURL, setGraphURL] = useState("");
+  const [graphURL, setGraphURL] = useState("https://www.geogebra.org/graphing");
   const [interpolatedXValue, setInterpolatedXValue] = useState("");
   function multiply(a1: number[], a2: number[]) {
     let result: number[] = [];
