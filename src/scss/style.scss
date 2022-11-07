@@ -79,7 +79,21 @@ body {
     background-color: #ffffff;
     cursor: pointer;
     transition: 0.7s;
+}
 
+.calculateYInput {
+    margin-top: 5vh;
+    width: 13rem;
+    outline: none;
+    border: 2px black solid;
+    border-radius: 10rem;
+    font-weight: 700;
+    letter-spacing: 0.05rem;
+    background-color: #ffffff;
+    transition: 0.7s;
+    text-align: center;
+    padding: 0.5rem;
+    margin-left: 1rem;
 }
 
 .submitButton:hover {

@@ -17,7 +17,7 @@ function App() {
   }
 
   const getCoefficients = (xPoints: number[], yPoints: number[]): number[] => {
-    if (yPoints.length <= 1) { return [yPoints[0]] }
+    if (yPoints.length == 1) { return [yPoints[0]] }
     let result: number[] = [];
     for (let i = 0; i < xPoints.length; i++) {
       result.push(0);
@@ -48,12 +48,11 @@ function App() {
     return result;
   }
   const showEquation = () => {
-    console.log(cardsList)
     const xPoints: number[] = cardsList.map(element => Number(element.xValue));
     const yPoints: number[] = cardsList.map(element => Number(element.yValue));
-    console.log(xPoints, yPoints)
-    const Coefficients = getCoefficients(xPoints, yPoints);
+    if (xPoints.length < 1 || yPoints.length < 1) { return }
     if ((new Set(xPoints)).size !== yPoints.length) { return }
+    const Coefficients = getCoefficients(xPoints, yPoints);
 
     let equation: string = "f(x)=";
     for (let i = 0; i < Coefficients.length; i++) {
@@ -78,7 +77,7 @@ function App() {
       <div className='card-container'>
         <Cards></Cards>
         <button onClick={showEquation} className='submitButton'>OBLICZ</button>
-
+        <input type="number" className='calculateYInput' placeholder='Oblicz wartość dla x:'></input>
       </div>
 
       {url.length > 0 ? (<div className='results'><br></br><img alt="Equation" src={url}></img></div>) : (<div></div>)}
