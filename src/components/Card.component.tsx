@@ -13,14 +13,13 @@ export const Card = (props: cardProps) => {
     const cardsList = useSelector((state: RootState) => state.cards);
     return (
         <div className="card">
-            X<sub>{props.index}</sub>Y<sub>{props.index}</sub>
             <br></br>
             <div className="closeButton plus" onClick={() => dispatch(deleteCard(props.index))}>x</div>
-            <label htmlFor="xValue">X:</label>
-            <input name="xValue" type="number" placeholder="X:" value={cardsList[props.index].xValue} onChange={e => dispatch(setXValue([props.index, Number(e.target.value)]))}></input>
+            <label htmlFor="xValue">X<sub>{props.index}</sub> :</label>
+            <input name="xValue" type="number" placeholder="X:" value={cardsList[props.index].xValue} onChange={e => dispatch(setXValue({ value: e.target.value, index: props.index }))}></input>
             <br></br>
-            <label htmlFor="yValue">Y:</label>
-            <input name="yValue" type="number" placeholder="Y:" value={cardsList[props.index].yValue} onChange={e => dispatch(setYValue([props.index, Number(e.target.value)]))}></input>
+            <label htmlFor="yValue">Y<sub>{props.index}</sub> :</label>
+            <input name="yValue" type="number" placeholder="Y:" value={cardsList[props.index].yValue} onChange={e => dispatch(setYValue({ value: e.target.value, index: props.index }))}></input>
         </div>
 
     )

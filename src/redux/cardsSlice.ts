@@ -3,14 +3,18 @@ import type { RootState } from './store'
 
 // Define a type for the slice state
 interface CardsState {
-    xValue: number,
-    yValue: number,
+    xValue: string,
+    yValue: string,
+}
+interface IChangeValue {
+    value: string,
+    index: number
 }
 
 // Define the initial state using that type
 const initialState: CardsState[] = [{
-    xValue: 0,
-    yValue: 0,
+    xValue: "0",
+    yValue: "0",
 }]
 
 export const cardsSlice = createSlice({
@@ -19,17 +23,18 @@ export const cardsSlice = createSlice({
     initialState,
     reducers: {
         createCard: (state) => {
-            state.push({ xValue: 0, yValue: 0 })
+            state.push({ xValue: "0", yValue: "0" })
         },
         deleteCard: (state, action: PayloadAction<number>) => {
             state.splice(action.payload, 1);
         },
         // Use the PayloadAction type to declare the contents of `action.payload`
-        setXValue: (state, action: PayloadAction<number[]>) => {
-            state[action.payload[0]].xValue = action.payload[1];
+        setXValue: (state, action: PayloadAction<IChangeValue>) => {
+            state[action.payload.index].xValue = action.payload.value;
         },
-        setYValue: (state, action: PayloadAction<number[]>) => {
-            state[action.payload[0]].yValue = action.payload[1];
+        setYValue: (state, action: PayloadAction<IChangeValue>) => {
+            state[action.payload.index].yValue = action.payload.value;
+
         }
 
     },

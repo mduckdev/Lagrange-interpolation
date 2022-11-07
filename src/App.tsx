@@ -48,8 +48,10 @@ function App() {
     return result;
   }
   const showEquation = () => {
-    const xPoints: number[] = cardsList.map(element => element.xValue);
-    const yPoints: number[] = cardsList.map(element => element.yValue);
+    console.log(cardsList)
+    const xPoints: number[] = cardsList.map(element => Number(element.xValue));
+    const yPoints: number[] = cardsList.map(element => Number(element.yValue));
+    console.log(xPoints, yPoints)
     const Coefficients = getCoefficients(xPoints, yPoints);
     if ((new Set(xPoints)).size !== yPoints.length) { return }
 
