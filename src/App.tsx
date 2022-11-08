@@ -4,10 +4,12 @@ import { Cards } from "./components/Cards.component"
 import { RootState } from './redux/store';
 import "./scss/style.scss"
 function App() {
+
   const cardsList = useSelector((state: RootState) => state.cards);
   const [url, setUrl] = useState("");
-  const [graphURL, setGraphURL] = useState("https://www.geogebra.org/graphing");
   const [interpolatedXValue, setInterpolatedXValue] = useState("");
+  const [equation, setEquation] = useState("");
+
   function multiply(a1: number[], a2: number[]) {
     let result: number[] = [];
     a1.forEach(function (a, i) {
@@ -18,8 +20,21 @@ function App() {
     return result;
   }
 
+
+  const showPlot = () => {
+    const xPoints: number[] = cardsList.map(element => Number(element.xValue));
+    const yPoints: number[] = cardsList.map(element => Number(element.yValue));
+    if (xPoints.length < 1 || yPoints.length < 1) { return }
+    if ((new Set(xPoints)).size !== yPoints.length) { return }
+    fetch("http://localhost:5000/ping").then(e => {
+      fetch("http://localhost:5000/showPlot", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ xPoints: xPoints, yPoints: yPoints }) })
+    }).catch(err => {
+      window.open("https://www.wolframalpha.com/input?i=plot+" + equation.slice(5).replaceAll("+", "%2b"));
+    })
+  }
+
   const getCoefficients = (xPoints: number[], yPoints: number[]): number[] => {
-    if (yPoints.length === 1) { return [yPoints[0]] }
+    if ((new Set(yPoints)).size === 1) { return [yPoints[0]] }
     let result: number[] = [];
     for (let i = 0; i < xPoints.length; i++) {
       result.push(0);
@@ -55,7 +70,6 @@ function App() {
     if (xPoints.length < 1 || yPoints.length < 1) { return }
     if ((new Set(xPoints)).size !== yPoints.length) { return }
     const Coefficients = getCoefficients(xPoints, yPoints);
-
     let equation: string = "f(x)=";
     for (let i = 0; i < Coefficients.length; i++) {
       let sign: string = "+"
@@ -73,7 +87,7 @@ function App() {
       equation += sign + Math.abs(Coefficients[i]).toString() + "x^" + String(Coefficients.length - 1 - i);
     }
     navigator.clipboard.writeText(equation.slice(5));
-    setGraphURL(`https://www.wolframalpha.com/input?i=plot+${equation}`)
+    setEquation(equation);
     if (interpolatedXValue.length > 0) {
       setUrl("https://latex.codecogs.com/png.image?\\dpi{110}\\\\" + equation + `\\\\f(${interpolatedXValue})=${calculateY(yPoints, xPoints, Number(interpolatedXValue))}`);
     } else {
@@ -83,7 +97,6 @@ function App() {
   }
   const calculateY = (yPoints: number[], xPoints: number[], interpolatedXValue: number) => {
     if (yPoints.length === 1) { return [yPoints[0]] }
-
     if (xPoints.length !== yPoints.length || xPoints.length === 0) return;
     if (yPoints.length === 1) return (yPoints[0] / xPoints[0]) * interpolatedXValue;
     let result = 0;
@@ -109,7 +122,7 @@ function App() {
       {url.length > 0 ? (<div className='results'><br></br><img alt="Equation" src={url}></img></div>) : (<div></div>)}
       <br></br>
       <div className='graph'>
-        <a href={graphURL} rel='noreferrer' target="_blank">WYKRES</a>
+        <a onClick={showPlot} href="#">WYKRES</a>
         <br></br>
         <i>Wzór po wygenerowaniu zostaje skopiowany do schowka</i>
       </div>
