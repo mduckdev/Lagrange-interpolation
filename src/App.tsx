@@ -84,7 +84,7 @@ function App() {
         equation += sign + Math.abs(Coefficients[i]).toString();
         continue;
       }
-      equation += sign + Math.abs(Coefficients[i]).toString() + "x^" + String(Coefficients.length - 1 - i);
+      equation += sign + Math.abs(Coefficients[i]).toString() + "x^{" + String(Coefficients.length - 1 - i) + "}";
     }
     navigator.clipboard.writeText(equation.slice(5));
     setEquation(equation);
