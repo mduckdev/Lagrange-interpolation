@@ -89,9 +89,9 @@ function App() {
     navigator.clipboard.writeText(equation.slice(5));
     setEquation(equation);
     if (interpolatedXValue.length > 0) {
-      setUrl("https://latex.codecogs.com/png.image?\\dpi{110}\\\\" + equation + `\\\\f(${interpolatedXValue})=${calculateY(yPoints, xPoints, Number(interpolatedXValue))}`);
+      setUrl("https://latex.codecogs.com/png.image?\\dpi{200}\\\\" + equation + `\\\\f(${interpolatedXValue})=${calculateY(yPoints, xPoints, Number(interpolatedXValue))}`);
     } else {
-      setUrl("https://latex.codecogs.com/png.image?\\dpi{110}\\\\" + equation)
+      setUrl("https://latex.codecogs.com/png.image?\\dpi{200}\\\\" + equation)
     }
 
   }
