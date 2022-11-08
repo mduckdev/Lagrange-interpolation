@@ -29,7 +29,7 @@ function App() {
     fetch("http://localhost:5000/ping").then(e => {
       fetch("http://localhost:5000/showPlot", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ xPoints: xPoints, yPoints: yPoints }) })
     }).catch(err => {
-      window.open("https://www.wolframalpha.com/input?i=plot+" + equation.slice(5).replaceAll("+", "%2b"));
+      window.open("https://www.wolframalpha.com/input?i=plot+" + equation.slice(5).replaceAll("+", "%2b").replaceAll("{", "").replaceAll("}", ""));
     })
   }
 
