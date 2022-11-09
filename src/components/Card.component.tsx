@@ -8,7 +8,6 @@ interface cardProps {
 }
 
 export const Card = (props: cardProps) => {
-    //const count = useSelector((state: RootState) => state.counter.value)
     const dispatch = useDispatch();
     const cardsList = useSelector((state: RootState) => state.cards);
     return (
