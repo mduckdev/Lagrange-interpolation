@@ -12,8 +12,6 @@ for index, i in enumerate(sys.argv):
     x_points.append(float(pair[0]))
     y_points.append(float(pair[1]))
 
-print(x_points, y_points)
-
 
 def interpolate_x_value(X):
     yp = 0

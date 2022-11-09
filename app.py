@@ -3,7 +3,7 @@ from flask import request, send_from_directory
 import subprocess
 import os
 
-app = Flask(__name__, static_folder='./lagrange/build')
+app = Flask(__name__, static_folder='./build')
 
 
 @app.route("/showPlot", methods=["POST"])
@@ -11,6 +11,10 @@ def post():
     if(request.json):
         x_points = request.json['xPoints']
         y_points = request.json['yPoints']
+        if(len(x_points) < 2 or len(y_points) < 2):
+            return "Empty"
+        if(len(x_points) != len(y_points)):
+            return "wrong data"
         params = ["python", ".\\plot.py"]
         for i in range(len(x_points)):
             params.append(str(x_points[i])+","+str(y_points[i]))
