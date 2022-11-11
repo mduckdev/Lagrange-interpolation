@@ -1,4 +1,4 @@
-import "../scss/style.scss"
+import "../css/style.css"
 import { Card } from "./Card.component"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../redux/store"

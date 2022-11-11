@@ -44,7 +44,6 @@ body {
 .closeButton {
     font-size: 100%;
     opacity: 100%;
-    transition-duration: 1s;
     margin: none;
     position: absolute;
     top: 3px;
@@ -68,7 +67,7 @@ body {
     letter-spacing: 0.15rem;
     background-color: #ffffff;
     cursor: pointer;
-    transition: 0.7s;
+    transition: 0.5s;
     padding: 0.2rem;
 }
 
@@ -122,4 +121,8 @@ body {
 
 .results img {
     margin-top: 2rem;
+}
+
+.error {
+    border: red 2px solid;
 }

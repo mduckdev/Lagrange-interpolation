@@ -2,13 +2,24 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Cards } from "./components/Cards.component"
 import { RootState } from './redux/store';
-import "./scss/style.scss"
+import "./css/style.css"
 function App() {
 
   const cardsList = useSelector((state: RootState) => state.cards);
   const [url, setUrl] = useState("");
   const [interpolatedXValue, setInterpolatedXValue] = useState("");
   const [equation, setEquation] = useState("");
+  const [isValidX, setIsValidX] = useState(true);
+
+
+  const handleInput = (element: React.ChangeEvent<HTMLInputElement>) => {
+    if (isNaN(element.target.valueAsNumber)) {
+      setIsValidX(false)
+    } else {
+      setIsValidX(true)
+    }
+    setInterpolatedXValue(element.target.value)
+  }
 
   function multiply(a1: number[], a2: number[]) {
     let result: number[] = [];
@@ -24,6 +35,7 @@ function App() {
   const showPlot = () => {
     const xPoints: number[] = cardsList.map(element => Number(element.xValue));
     const yPoints: number[] = cardsList.map(element => Number(element.yValue));
+    if (document.querySelector(".error")) { return }
     if (xPoints.length < 1 || yPoints.length < 1) { return }
     if ((new Set(xPoints)).size !== yPoints.length) { return }
     fetch("http://localhost:5000/ping").then(e => {
@@ -67,6 +79,7 @@ function App() {
   const showEquation = () => {
     const xPoints: number[] = cardsList.map(element => Number(element.xValue));
     const yPoints: number[] = cardsList.map(element => Number(element.yValue));
+    if (document.querySelector(".error")) { return }
     if (xPoints.length < 1 || yPoints.length < 1) { return }
     if ((new Set(xPoints)).size !== yPoints.length) { return }
     const Coefficients = getCoefficients(xPoints, yPoints);
@@ -116,7 +129,7 @@ function App() {
       <div className='card-container'>
         <Cards></Cards>
         <button onClick={showEquation} className='submitButton'>OBLICZ</button>
-        <input onChange={e => setInterpolatedXValue(e.target.value)} type="number" className='calculateYInput' placeholder='Oblicz wartość dla x:'></input>
+        <input onChange={e => handleInput(e)} type="number" className={isValidX ? ("calculateYInput") : ("calculateYInput error")} placeholder='Oblicz wartość dla x:'></input>
       </div>
 
       {url.length > 0 ? (<div className='results'><br></br><img alt="Equation" src={url}></img></div>) : (<div></div>)}
