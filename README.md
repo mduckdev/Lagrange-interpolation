@@ -12,7 +12,7 @@ git clone https://github.com/mduckdev/Lagrange-interpolation.git
 cd Lagrange-interpolation
 npm install
 npm run build
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 Wykonanie tych komend zainstaluje wszystkie potrzebne zależności. <br>
 
@@ -38,7 +38,7 @@ git clone https://github.com/mduckdev/Lagrange-interpolation.git
 cd Lagrange-interpolation
 npm install
 npm run build
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 Proceeding these commands will install all needed dependencies. <br>
 
