@@ -21,10 +21,10 @@ function App() {
     setInterpolatedXValue(element.target.value)
   }
 
-  function multiply(a1: number[], a2: number[]) {
+  const multiply = (a1: number[], a2: number[]) => {
     let result: number[] = [];
-    a1.forEach(function (a, i) {
-      a2.forEach(function (b, j) {
+    a1.forEach((a, i) => {
+      a2.forEach((b, j) => {
         result[i + j] = (result[i + j] || 0) + a * b;
       });
     });
@@ -62,13 +62,13 @@ function App() {
       for (let j = 0; j < numerator.length; j++) {
         numerator[j] = numerator[j] * yPoints[i]
       }
-      let denumerator: number = 1;
+      let denominator: number = 1;
       for (let j = 0; j < xPoints.length; j++) {
         if (j === i) continue
-        denumerator = denumerator * (xPoints[i] - xPoints[j])
+        denominator = denominator * (xPoints[i] - xPoints[j])
       }
       for (let j = 0; j < xPoints.length; j++) {
-        numerator[j] = numerator[j] / denumerator;
+        numerator[j] = numerator[j] / denominator;
       }
       for (let j = 0; j < xPoints.length; j++) {
         result[j] += numerator[j];
