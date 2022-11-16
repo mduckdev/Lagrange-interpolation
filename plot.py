@@ -30,7 +30,7 @@ fig = plt.figure()
 ax = fig.add_subplot(axes_class=AxesZero)
 #ax.set_aspect('equal', adjustable='box')
 figManager = plt.get_current_fig_manager()
-figManager.window.showMaximized()
+#figManager.window.showMaximized()
 
 for direction in ["xzero", "yzero"]:
     ax.axis[direction].set_axisline_style("-|>")

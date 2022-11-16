@@ -2,8 +2,11 @@ from flask import Flask
 from flask import request, send_from_directory
 import subprocess
 import os
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__, static_folder='./build')
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 @app.route("/showPlot", methods=["POST"])
