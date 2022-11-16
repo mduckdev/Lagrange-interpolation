@@ -13,6 +13,10 @@ function App() {
 
 
   const handleInput = (element: React.ChangeEvent<HTMLInputElement>) => {
+    if (element.target.value == "") {
+      setInterpolatedXValue(element.target.value);
+      return;
+    }
     if (isNaN(element.target.valueAsNumber)) {
       setIsValidX(false)
     } else {
@@ -79,9 +83,9 @@ function App() {
   const showEquation = () => {
     const xPoints: number[] = cardsList.map(element => Number(element.xValue));
     const yPoints: number[] = cardsList.map(element => Number(element.yValue));
-    if (document.querySelector(".error")) { return }
+    if (document.querySelector(".error")) { return alert("Niepoprawne dane wejściowe") }
     if (xPoints.length < 1 || yPoints.length < 1) { return }
-    if ((new Set(xPoints)).size !== yPoints.length) { return }
+    if ((new Set(xPoints)).size !== xPoints.length) { return alert("Wszystkie punkty muszą być unikalne") }
     const Coefficients = getCoefficients(xPoints, yPoints);
     let equation: string = "f(x)=";
     for (let i = 0; i < Coefficients.length; i++) {
