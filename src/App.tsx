@@ -13,10 +13,7 @@ function App() {
 
 
   const handleInput = (element: React.ChangeEvent<HTMLInputElement>) => {
-    if (element.target.value == "") {
-      setInterpolatedXValue(element.target.value);
-      return;
-    }
+
     if (isNaN(element.target.valueAsNumber)) {
       setIsValidX(false)
     } else {
