@@ -7,19 +7,24 @@ function App() {
 
   const cardsList = useSelector((state: RootState) => state.cards);
   const [url, setUrl] = useState("");
-  const [interpolatedXValue, setInterpolatedXValue] = useState("");
+  const [interpolatedXValue, setInterpolatedXValue] = useState<string | null>("");
   const [equation, setEquation] = useState("");
   const [isValidX, setIsValidX] = useState(true);
 
 
-  const handleInput = (element: React.ChangeEvent<HTMLInputElement>) => {
-
-    if (isNaN(element.target.valueAsNumber)) {
+  const handleInput = (element: React.FormEvent<HTMLInputElement>) => {
+    let value: string = element.currentTarget.value;
+    if (value === "") {
+      setIsValidX(true)
+      setInterpolatedXValue(value)
+      return;
+    }
+    if (isNaN(Number(value))) {
       setIsValidX(false)
     } else {
       setIsValidX(true)
     }
-    setInterpolatedXValue(element.target.value)
+    setInterpolatedXValue(value)
   }
 
   const multiply = (a1: number[], a2: number[]) => {
@@ -87,22 +92,23 @@ function App() {
     let equation: string = "f(x)=";
     for (let i = 0; i < Coefficients.length; i++) {
       let sign: string = "+"
+      let currentCoefficient = (Coefficients[i].toString().length > 12 ? parseFloat(Coefficients[i].toFixed(10)) : (Coefficients[i]));
       if (i === 0) sign = ""
-      if (Coefficients[i] === 0 && i !== 0) continue
-      if (Coefficients[i] < 0) sign = "-"
+      if (currentCoefficient === 0 && i !== 0) continue
+      if (currentCoefficient < 0) sign = "-"
       if (Coefficients.length - 1 - i === 1) {
-        equation += sign + Math.abs(Coefficients[i]).toString() + "x";
+        equation += sign + Math.abs(currentCoefficient).toString() + "x";
         continue;
       }
       if (Coefficients.length - 1 - i === 0) {
-        equation += sign + Math.abs(Coefficients[i]).toString();
+        equation += sign + Math.abs(currentCoefficient).toString();
         continue;
       }
-      equation += sign + Math.abs(Coefficients[i]).toString() + "x^{" + String(Coefficients.length - 1 - i) + "}";
+      equation += sign + Math.abs(currentCoefficient).toString() + "x^{" + String(Coefficients.length - 1 - i) + "}";
     }
     navigator.clipboard.writeText(equation.slice(5));
     setEquation(equation);
-    if (interpolatedXValue.length > 0) {
+    if (interpolatedXValue && interpolatedXValue.length > 0) {
       setUrl("https://latex.codecogs.com/png.image?\\dpi{200}\\\\" + equation + `\\\\f(${interpolatedXValue})=${calculateY(yPoints, xPoints, Number(interpolatedXValue))}`);
     } else {
       setUrl("https://latex.codecogs.com/png.image?\\dpi{200}\\\\" + equation)
@@ -130,7 +136,7 @@ function App() {
       <div className='card-container'>
         <Cards></Cards>
         <button onClick={showEquation} className='submitButton'>OBLICZ</button>
-        <input onChange={e => handleInput(e)} type="number" className={isValidX ? ("calculateYInput") : ("calculateYInput error")} placeholder='Oblicz wartość dla x:'></input>
+        <input onChange={e => handleInput(e)} type="text" className={isValidX ? ("calculateYInput") : ("calculateYInput error")} placeholder='Oblicz wartość dla x:'></input>
       </div>
 
       {url.length > 0 ? (<div className='results'><br></br><img alt="Equation" src={url}></img></div>) : (<div></div>)}
