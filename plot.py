@@ -24,13 +24,12 @@ def interpolate_x_value(X):
     return yp
 
 
-plt.rcParams["figure.figsize"] = [100, 100]
+plt.rcParams["figure.figsize"] = [20, 20]
 plt.rcParams["figure.autolayout"] = True
 fig = plt.figure()
 ax = fig.add_subplot(axes_class=AxesZero)
-#ax.set_aspect('equal', adjustable='box')
-figManager = plt.get_current_fig_manager()
-#figManager.window.showMaximized()
+plt.axis('equal')
+
 
 for direction in ["xzero", "yzero"]:
     ax.axis[direction].set_axisline_style("-|>")
@@ -40,7 +39,7 @@ for direction in ["xzero", "yzero"]:
 for direction in ["left", "right", "bottom", "top"]:
     ax.axis[direction].set_visible(False)
 
-plt.plot(x_points, y_points, 'r*')
+plt.plot(x_points, y_points, 'ro')
 
 x = np.linspace(min(x_points)-len(x_points)*2,
                 max(x_points)+len(x_points)*2, 200)
