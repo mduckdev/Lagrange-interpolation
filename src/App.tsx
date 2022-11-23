@@ -95,7 +95,7 @@ function App() {
       let currentCoefficient = (Coefficients[i].toString().length > 12 ? parseFloat(Coefficients[i].toFixed(10)) : (Coefficients[i]));
       if (i === 0) sign = ""
       if (currentCoefficient === 0 && i !== 0) continue
-      if (currentCoefficient < 0) sign = "-"
+      if (currentCoefficient < 0) sign = "-";
       if (Coefficients.length - 1 - i === 1) {
         equation += sign + Math.abs(currentCoefficient).toString() + "x";
         continue;
@@ -139,7 +139,7 @@ function App() {
         <input onChange={e => handleInput(e)} type="text" className={isValidX ? ("calculateYInput") : ("calculateYInput error")} placeholder='Oblicz wartość dla x:'></input>
       </div>
 
-      {url.length > 0 ? (<div className='results'><br></br><img alt="Equation" src={url}></img></div>) : (<div></div>)}
+      {url.length > 0 ? (<div className='results'><br></br><img alt={equation} src={url}></img></div>) : (<div></div>)}
       <br></br>
       <div className='graph'>
         <a onClick={showPlot} href="#">WYKRES</a>
